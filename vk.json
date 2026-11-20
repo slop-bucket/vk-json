@@ -1,8 +1,8 @@
 {
   "meta": {
     "source": "KhronosGroup/Vulkan-Docs",
-    "commit": "f7de774cace1509af0f10b8d859c973b5354ff62",
-    "headerVersion": "1.4.368",
+    "commit": "33d3353757d83d6aca683120114fe74cc4eaf8fb",
+    "headerVersion": "1.4.369",
     "license": [
       "Copyright 2015-2026 The Khronos Group Inc.\nSPDX-License-Identifier: Apache-2.0 OR MIT",
       "This file, vk.xml, is the Vulkan API Registry. It is a critically important\nand normative part of the Vulkan Specification, including a canonical\nmachine-readable definition of the API, parameter and member validation\nlanguage incorporated into the Specification and reference pages, and other\nmaterial which is registered by Khronos, such as tags used by extension and\nlayer authors. The authoritative public version of vk.xml is maintained in\nthe default branch (currently named main) of the Khronos Vulkan GitHub\nproject. The authoritative private version is maintained in the default\nbranch of the member gitlab server."
@@ -7948,7 +7948,7 @@
         "vulkan",
         "vulkanbase"
       ],
-      "text": "// Version of this file #define VK_HEADER_VERSION 368",
+      "text": "// Version of this file #define VK_HEADER_VERSION 369",
       "variants": [
         {
           "category": "define",
@@ -57842,7 +57842,8 @@
           "optional": [
             false,
             true
-          ]
+          ],
+          "externSync": "true"
         }
       ]
     },
@@ -68135,6 +68136,33 @@
         }
       ]
     },
+    "VkPhysicalDeviceMultiLevelAccelerationStructureFeaturesAMDX": {
+      "category": "struct",
+      "structExtends": [
+        "VkPhysicalDeviceFeatures2",
+        "VkDeviceCreateInfo"
+      ],
+      "members": [
+        {
+          "name": "sType",
+          "type": "VkStructureType",
+          "values": "VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_MULTI_LEVEL_ACCELERATION_STRUCTURE_FEATURES_AMDX"
+        },
+        {
+          "name": "pNext",
+          "type": "void",
+          "pointer": 1,
+          "optional": [
+            true
+          ],
+          "noAutoValidity": true
+        },
+        {
+          "name": "multiLevelAccelerationStructure",
+          "type": "VkBool32"
+        }
+      ]
+    },
     "VkPhysicalDeviceImageTilingControlFeaturesEXT": {
       "category": "struct",
       "structExtends": [
@@ -73942,7 +73970,7 @@
       "tasks": [
         "action"
       ],
-      "comment": "transfer support is only available when VK_KHR_maintenance1 is enabled, as documented in valid usage language in the specification",
+      "comment": "transfer support is only available when VK_KHR_maintenance1 is enabled, as documented in valid usage language in the Specification",
       "returnType": "void",
       "params": [
         {
@@ -108107,7 +108135,7 @@
       "number": 136,
       "type": "device",
       "author": "EXT",
-      "depends": "((VK_KHR_extended_flags,VK_KHR_maintenance5)+(VK_KHR_buffer_device_address,VK_VERSION_1_2),VK_VERSION_1_4)",
+      "depends": "((VK_KHR_extended_flags,VK_KHR_maintenance5)+(VK_KHR_buffer_device_address,VK_VERSION_1_2)),VK_VERSION_1_4",
       "contact": "Tobias Hector @tobski",
       "supported": [
         "vulkan"
@@ -137665,34 +137693,54 @@
         }
       ]
     },
-    "VK_AMD_extension_649": {
+    "VK_AMDX_multi_level_acceleration_structure": {
       "number": 649,
       "type": "device",
+      "depends": "VK_KHR_acceleration_structure+(VK_KHR_maintenance5,VK_VERSION_1_4)",
       "author": "AMD",
       "contact": "Stu Smith @stu-s",
       "supported": [
-        "disabled"
+        "vulkan"
       ],
+      "provisional": "true",
+      "platform": "provisional",
       "require": [
         {
           "enums": [
             {
-              "value": 0,
-              "name": "VK_AMD_EXTENSION_649_SPEC_VERSION"
+              "value": 1,
+              "name": "VK_AMDX_MULTI_LEVEL_ACCELERATION_STRUCTURE_SPEC_VERSION"
             },
             {
-              "value": "\"VK_AMD_extension_649\"",
-              "name": "VK_AMD_EXTENSION_649_EXTENSION_NAME"
+              "value": "\"VK_AMDX_multi_level_acceleration_structure\"",
+              "name": "VK_AMDX_MULTI_LEVEL_ACCELERATION_STRUCTURE_EXTENSION_NAME"
+            },
+            {
+              "offset": 0,
+              "extends": "VkStructureType",
+              "name": "VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_MULTI_LEVEL_ACCELERATION_STRUCTURE_FEATURES_AMDX",
+              "protect": "VK_ENABLE_BETA_EXTENSIONS"
             },
             {
               "bitpos": 47,
               "extends": "VkPipelineCreateFlagBits2",
-              "name": "VK_PIPELINE_CREATE_2_RESERVED_47_BIT_AMD"
+              "name": "VK_PIPELINE_CREATE_2_RAY_TRACING_ALLOW_MULTI_LEVEL_ACCELERATION_STRUCTURES_BIT_AMDX",
+              "protect": "VK_ENABLE_BETA_EXTENSIONS"
             },
             {
-              "bitpos": 13,
-              "extends": "VkBuildAccelerationStructureFlagBitsKHR",
-              "name": "VK_BUILD_ACCELERATION_STRUCTURE_RESERVED_13_BIT_AMD"
+              "offset": 0,
+              "extends": "VkAccelerationStructureTypeKHR",
+              "name": "VK_ACCELERATION_STRUCTURE_TYPE_MID_LEVEL_AMDX",
+              "protect": "VK_ENABLE_BETA_EXTENSIONS"
+            }
+          ],
+          "types": [
+            "VkPhysicalDeviceMultiLevelAccelerationStructureFeaturesAMDX"
+          ],
+          "features": [
+            {
+              "name": "multiLevelAccelerationStructure",
+              "struct": "VkPhysicalDeviceMultiLevelAccelerationStructureFeaturesAMDX"
             }
           ]
         }
@@ -138378,6 +138426,7 @@
     "VK_NV_internal_handle": {
       "number": 668,
       "type": "device",
+      "depends": "VK_KHR_get_physical_device_properties2,VK_VERSION_1_1",
       "author": "NV",
       "contact": "Chris Lentini @clentini",
       "supported": [
@@ -140500,6 +140549,11 @@
             {
               "value": "\"VK_KHR_extension_713\"",
               "name": "VK_KHR_EXTENSION_713_EXTENSION_NAME"
+            },
+            {
+              "bitpos": 4,
+              "extends": "VkVideoCodecOperationFlagBitsKHR",
+              "name": "VK_VIDEO_CODEC_RESERVED_4_BIT_KHR"
             }
           ]
         }
@@ -140522,6 +140576,11 @@
             {
               "value": "\"VK_KHR_extension_714\"",
               "name": "VK_KHR_EXTENSION_714_EXTENSION_NAME"
+            },
+            {
+              "bitpos": 5,
+              "extends": "VkVideoCodecOperationFlagBitsKHR",
+              "name": "VK_VIDEO_CODEC_RESERVED_5_BIT_KHR"
             }
           ]
         }
@@ -140948,6 +141007,33 @@
             {
               "value": "\"VK_RFIVE_view_surface\"",
               "name": "VK_RFIVE_VIEW_SURFACE_EXTENSION_NAME"
+            }
+          ]
+        }
+      ]
+    },
+    "VK_QCOM_extension_733": {
+      "number": 733,
+      "author": "QCOM",
+      "contact": "Matthew Netsch @mnetsch",
+      "supported": [
+        "disabled"
+      ],
+      "require": [
+        {
+          "enums": [
+            {
+              "value": 0,
+              "name": "VK_QCOM_EXTENSION_733_SPEC_VERSION"
+            },
+            {
+              "value": "\"VK_QCOM_extension_733\"",
+              "name": "VK_QCOM_EXTENSION_733_EXTENSION_NAME"
+            },
+            {
+              "bitpos": 62,
+              "extends": "VkFormatFeatureFlagBits2",
+              "name": "VK_FORMAT_FEATURE_2_RESERVED_62_BIT_QCOM"
             }
           ]
         }
@@ -149631,6 +149717,13 @@
         }
       ]
     },
+    "SPV_AMDX_multi_level_acceleration_structure": {
+      "enables": [
+        {
+          "extension": "VK_AMDX_multi_level_acceleration_structure"
+        }
+      ]
+    },
     "SPV_ARM_cooperative_matrix_layouts": {
       "enables": [
         {
@@ -151704,6 +151797,24 @@
           "struct": "VkPhysicalDeviceCooperativeMatrixMaintenance1FeaturesEXT",
           "feature": "cooperativeMatrixGetCoordinate",
           "requires": "VK_EXT_cooperative_matrix_maintenance1"
+        }
+      ]
+    },
+    "RayTracingMultiLevelAccelerationStructureAMDX": {
+      "enables": [
+        {
+          "struct": "VkPhysicalDeviceMultiLevelAccelerationStructureFeaturesAMDX",
+          "feature": "multiLevelAccelerationStructure",
+          "requires": "VK_AMDX_multi_level_acceleration_structure"
+        }
+      ]
+    },
+    "RayQueryMultiLevelAccelerationStructureAMDX": {
+      "enables": [
+        {
+          "struct": "VkPhysicalDeviceMultiLevelAccelerationStructureFeaturesAMDX",
+          "feature": "multiLevelAccelerationStructure",
+          "requires": "VK_AMDX_multi_level_acceleration_structure"
         }
       ]
     },
