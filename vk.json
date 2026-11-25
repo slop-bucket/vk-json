@@ -1,7 +1,7 @@
 {
   "meta": {
     "source": "KhronosGroup/Vulkan-Docs",
-    "commit": "f0fe740e3ec9f3c060a5eb7ea11de0e2fdca85dc",
+    "commit": "825e9b7399b009278d3de618e96bcab4b60a3254",
     "headerVersion": "1.4.369",
     "license": [
       "Copyright 2015-2026 The Khronos Group Inc.\nSPDX-License-Identifier: Apache-2.0 OR MIT",
@@ -141034,6 +141034,28 @@
               "bitpos": 62,
               "extends": "VkFormatFeatureFlagBits2",
               "name": "VK_FORMAT_FEATURE_2_RESERVED_62_BIT_QCOM"
+            }
+          ]
+        }
+      ]
+    },
+    "VK_NV_extension_734": {
+      "number": 734,
+      "author": "NV",
+      "contact": "Jeff Ellison @AlpyneDreams",
+      "supported": [
+        "disabled"
+      ],
+      "require": [
+        {
+          "enums": [
+            {
+              "value": 0,
+              "name": "VK_NV_EXTENSION_734_SPEC_VERSION"
+            },
+            {
+              "value": "\"VK_NV_extension_734\"",
+              "name": "VK_NV_EXTENSION_734_EXTENSION_NAME"
             }
           ]
         }
