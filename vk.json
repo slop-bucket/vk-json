@@ -1,7 +1,7 @@
 {
   "meta": {
     "source": "KhronosGroup/Vulkan-Docs",
-    "commit": "825e9b7399b009278d3de618e96bcab4b60a3254",
+    "commit": "d4e43a045c9aaaaee930bf6d0ca404a3ee389ba8",
     "headerVersion": "1.4.369",
     "license": [
       "Copyright 2015-2026 The Khronos Group Inc.\nSPDX-License-Identifier: Apache-2.0 OR MIT",
@@ -7718,6 +7718,10 @@
     "RFIVE": {
       "author": "R5 Operating System",
       "contact": "@r5-operating-system"
+    },
+    "RENKU": {
+      "author": "RenkuOS",
+      "contact": "Kevin Adams @KevinAdams05, kevinadams05@gmail.com"
     }
   },
   "types": {
@@ -7999,6 +8003,10 @@
     "VK_USE_64_BIT_PTR_DEFINES": {
       "category": "define",
       "text": "#ifndef VK_USE_64_BIT_PTR_DEFINES #if defined(__LP64__) || defined(_WIN64) || (defined(__x86_64__) && !defined(__ILP32__) ) || defined(_M_X64) || defined(__ia64) || defined (_M_IA64) || defined(__aarch64__) || defined(__powerpc64__) || (defined(__riscv) && __riscv_xlen == 64) #define VK_USE_64_BIT_PTR_DEFINES 1 #else #define VK_USE_64_BIT_PTR_DEFINES 0 #endif #endif"
+    },
+    "VKAPI_NODISCARD": {
+      "category": "define",
+      "text": "#ifndef VKAPI_NODISCARD #define VKAPI_NODISCARD #endif"
     },
     "VK_NULL_HANDLE": {
       "category": "define",
@@ -9953,7 +9961,9 @@
       "category": "enum"
     },
     "VkResult": {
-      "category": "enum"
+      "category": "enum",
+      "requires": "VKAPI_NODISCARD",
+      "nodiscard": "true"
     },
     "VkShaderStageFlagBits": {
       "category": "enum"
@@ -95446,6 +95456,7 @@
             "vk_platform",
             "VK_DEFINE_HANDLE",
             "VK_USE_64_BIT_PTR_DEFINES",
+            "VKAPI_NODISCARD",
             "VK_DEFINE_NON_DISPATCHABLE_HANDLE",
             "VK_NULL_HANDLE"
           ]
@@ -141056,6 +141067,29 @@
             {
               "value": "\"VK_NV_extension_734\"",
               "name": "VK_NV_EXTENSION_734_EXTENSION_NAME"
+            }
+          ]
+        }
+      ]
+    },
+    "VK_RENKU_surface": {
+      "number": 735,
+      "type": "instance",
+      "author": "RENKU",
+      "contact": "Kevin Adams @KevinAdams05",
+      "supported": [
+        "disabled"
+      ],
+      "require": [
+        {
+          "enums": [
+            {
+              "value": 0,
+              "name": "VK_RENKU_SURFACE_SPEC_VERSION"
+            },
+            {
+              "value": "\"VK_RENKU_surface\"",
+              "name": "VK_RENKU_SURFACE_EXTENSION_NAME"
             }
           ]
         }
